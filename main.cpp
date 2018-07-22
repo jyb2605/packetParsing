@@ -54,48 +54,51 @@ int main(int argc, char* argv[]) {
     
     printf("source mac address : ");
     for(int i=0; i<6; i++){
-    	printf("%x ", smac[i]);
+    	printf("%x", smac[i]);
+	if( i!= 5)
+		printf(":");
     }
     printf("\n");
 
     printf("destination mac address : ");
     for(int i=0; i<6; i++){
-	    printf("%x ", dmac[i]);
+	printf("%x", dmac[i]);
+	if( i!=5)
+	    printf(":");	
     }
     printf("\n");
 
     printf("source ip address : ");
     for(int i=0; i<4; i++){
-            printf("%x ", sip[i]);
+        printf("%d", sip[i]);
+	if( i!=3)
+		printf(".");
+
     }
     printf("\n");
 
     printf("destination ip address : ");
     for(int i=0; i<4; i++){
-            printf("%x ", dip[i]);
+        printf("%d", dip[i]);
+	if( i!=3)
+                printf(".");
     }
     printf("\n");
 
     printf("source port number : ");
-    for(int i=0; i<2; i++){
-            printf("%x ", sport[i]);
-    }
-    printf("\n");
+    printf("%d\n", (unsigned int)*sport);
 
     printf("destination port number : ");
-    for(int i=0; i<2; i++){
-            printf("%x ", dport[i]);
-    }
-    printf("\n");
+    printf("%d\n", (unsigned int)*dport);
 
     printf("data : ");
 
     int data_size = (16 < (header->caplen - 54)) ? 16 : (header->caplen-54);
 
-    for(int i=0; i< 16 ; i++){
+    for(int i=0; i< data_size ; i++){
 	    printf("%x ", data[i]);
     }
-    printf("\n");
+    printf("\n\n");
 
   }
 
