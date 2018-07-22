@@ -12,6 +12,8 @@ int main(int argc, char* argv[]) {
   u_char smac[6], dmac[6];
   u_char sip[4], dip[4];
   u_char sport[2], dport[2]; 
+  u_char dataLen, data[1430];
+
 
   if (argc != 2) {
     usage();
@@ -42,11 +44,13 @@ int main(int argc, char* argv[]) {
     
     memcpy(dmac, &packet[0], 6);
     memcpy(smac, &packet[6], 6);
-    memcpy(sip, &packet[28], 4);
-    memcpy(dip, &packet[38], 4);
-    memcpy(sip, &packet[42], 2);
-    memcpy(dip, &packet[44], 2);
-
+    memcpy(sip, &packet[26], 4);
+    memcpy(dip, &packet[30], 4);
+    memcpy(sport, &packet[34], 2);
+    memcpy(dport, &packet[36], 2);
+    //memcpy(dataLen, &packet[46], 1);
+    //dataLen = packet[46];
+    memcpy(data, &packet[54], 16);
     
     printf("source mac address : ");
     for(int i=0; i<6; i++){
@@ -84,7 +88,14 @@ int main(int argc, char* argv[]) {
     }
     printf("\n");
 
+    printf("data : ");
 
+    int data_size = (16 < (header->caplen - 54)) ? 16 : (header->caplen-54);
+
+    for(int i=0; i< 16 ; i++){
+	    printf("%x ", data[i]);
+    }
+    printf("\n");
 
   }
 
